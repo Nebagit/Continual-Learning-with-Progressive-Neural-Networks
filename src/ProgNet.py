@@ -1,14 +1,11 @@
-
-## The credits for this file go to Maxwell J Jacobson for implementing Doric
-## you can learn more details about Doric in this repository :
-# https://github.com/arcosin/Doric
-
+# I implemented the base classes for Progressive Neural Networks (PNNs)
+# These are written by me for my continual learning experiments
 
 import torch.nn as nn
 
 
 """
-Class that acts as the base building-blocks of ProgNets.
+Base class for building blocks of ProgNets.
 Includes a module (usually a single layer),
 a set of lateral modules, and an activation.
 """
@@ -37,9 +34,9 @@ class ProgBlock(nn.Module):
 
 
 """
-A column representing one sequential ANN with all of its lateral modules.
-Outputs of the last forward run are stored for child column laterals.
-Output of each layer is calculated as:
+A column representing a sequential ANN with all its lateral modules.
+Stores outputs for child column laterals.
+Each layer output is computed as:
 y = activation(block(x) + sum(laterals(x)))
 """
 class ProgColumn(nn.Module):
@@ -53,10 +50,10 @@ class ProgColumn(nn.Module):
         self.lastOutputList = []
 
     def freeze(self, unfreeze = False):
-        if not unfreeze:    # Freeze params.
+        if not unfreeze:    # Freeze parameters
             self.isFrozen = True
             for param in self.parameters():   param.requires_grad = False
-        else:               # Unfreeze params.
+        else:               # Unfreeze parameters
             self.isFrozen = False
             for param in self.parameters():   param.requires_grad = True
 
@@ -79,9 +76,8 @@ class ProgColumn(nn.Module):
 
 
 """
-A progressive neural network as described in Progressive Neural Networks (Rusu et al.).
-Columns can be added manually or with a ProgColumnGenerator.
-https://arxiv.org/abs/1606.04671
+Progressive Neural Network (PNN) class.
+Columns can be added manually or using a ProgColumnGenerator.
 """
 class ProgNet(nn.Module):
     def __init__(self, colGen = None):
@@ -93,10 +89,10 @@ class ProgNet(nn.Module):
         self.colGen = colGen
         self.colShape = None
 
-    def addColumn(self, device,col = None, msg = None):
+    def addColumn(self, device, col = None, msg = None):
         if not col:
             parents = [colRef for colRef in self.columns]
-            col = self.colGen.generateColumn(device = device,parent_cols = parents)
+            col = self.colGen.generateColumn(device = device, parent_cols = parents)
         self.columns.append(col)
         self.colMap[col.colID] = self.numCols
         self.numRows = col.numRows
@@ -120,8 +116,7 @@ class ProgNet(nn.Module):
             col.freeze(unfreeze = True)
 
     def getColumn(self, id):
-        col = self.columns[self.colMap[id]]
-        return col
+        return self.columns[self.colMap[id]]
 
     def forward(self, id, x):
         colToOutput = self.colMap[id]
@@ -132,13 +127,10 @@ class ProgNet(nn.Module):
 
 
 
-
 """
-Class that generates new ProgColumns using the method generateColumn.
-The parentCols list will contain references to each parent column,
-such that columns can access lateral outputs.
-Additional information may be passed through the msg argument in
-generateColumn and ProgNet.addColumn.
+Class to generate new ProgColumns.
+The parentCols list contains references to parent columns,
+allowing lateral connections to access previous outputs.
 """
 class ProgColumnGenerator:
     def generateColumn(self, parentCols, msg = None):

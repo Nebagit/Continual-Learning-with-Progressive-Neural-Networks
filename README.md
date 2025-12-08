@@ -23,13 +23,19 @@ The project includes **LSTM-based and CNN-based columns**, modular **blocks**, a
 
 ## Table of Contents
 
-1. [Installation](#installation)  
-2. [Project Structure](#project-structure)  
-3. [Usage](#usage)  
-4. [Configuration](#configuration)  
-5. [Training & Evaluation](#training--evaluation)  
-6. [Results Visualization](#results-visualization)  
-7. [References](#references)  
+- [Progressive Neural Network (PNN) for Continual Learning](#progressive-neural-network-pnn-for-continual-learning)
+  - [Overview](#overview)
+  - [Table of Contents](#table-of-contents)
+  - [Installation](#installation)
+  - [Project Structure](#project-structure)
+  - [Usage](#usage)
+    - [1. Initialize a column generator:](#1-initialize-a-column-generator)
+    - [2. Add a new column and train:](#2-add-a-new-column-and-train)
+    - [3. Forward pass:](#3-forward-pass)
+  - [Configuration](#configuration)
+  - [Training \& Evaluation](#training--evaluation)
+  - [Results Visualization](#results-visualization)
+  - [References](#references)
 
 ---
 
@@ -38,8 +44,8 @@ The project includes **LSTM-based and CNN-based columns**, modular **blocks**, a
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/yourusername/progressive-neural-network.git
-cd progressive-neural-network
+git clone https://github.com/Nebagit/Continual-Learning-with-Progressive-Neural-Networks.git
+cd Continual-Learning-with-Progressive-Neural-Networks
 ```
 
 2. Create a virtual environment and activate it:
@@ -74,12 +80,6 @@ progressive-neural-network/
 │   ├── ProgNet.py              # Core classes: ProgBlock, ProgColumn, ProgNet
 │   ├── Column_Generator.py     # LSTM and CNN column generators
 │   └── config.py               # Configuration file with hyperparameters
-│
-├── data/                       # Data loaders and controllers
-├── tests/                      # Scripts to test PNN on datasets
-├── binary-PNN-weights.pth      # Saved model weights
-├── README.md                   # Project overview
-└── requirements.txt            # Python dependencies
 ```
 
 ---
@@ -173,8 +173,9 @@ plt.show()
 
 ## References
 
-1. Rusu et al., *Progressive Neural Networks*, 2016. [Paper](https://arxiv.org/abs/1606.04671)  
-2. Doric: https://github.com/arcosin/Doric  
+1. Rusu et al., *Progressive Neural Networks*, 2016.  
+2. Zhang et al., *cPNN: Continuous Progressive Neural Networks for Evolving Streaming Time Series*, 2023.  
+3. Nguyen et al., *Robust Continual Learning through a Comprehensively Progressive Bayesian Neural Network*, 2022.
 
 ---
 
