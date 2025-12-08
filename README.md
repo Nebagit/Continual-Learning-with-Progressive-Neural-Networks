@@ -1,4 +1,4 @@
-# Progressive Neural Network (PNN) for Continual Learning
+# Implementation of Progressive Neural Network (PNN) for Continual Learning
 
 **Author:** Nebiyu Tefera  
 **Language:** Python / PyTorch  
