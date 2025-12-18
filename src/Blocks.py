@@ -1,5 +1,7 @@
 # I implemented the blocks for our columns in the Progressive Neural Network (PNN)
 # These blocks are written by me and customized for my continual learning experiments
+# I implemented the blocks for our columns in the Progressive Neural Network (PNN)
+# These blocks are written by me and customized for my continual learning experiments
 
 from src.ProgNet import *
 import torch.nn as nn
